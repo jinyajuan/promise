@@ -1,5 +1,5 @@
 //调用9.js中手写的promise
-let promise = require('./9')
+let promise = require('./09')
 
 let p = new Promise((resolve, reject) => {
     console.log(1);
