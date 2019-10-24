@@ -49,14 +49,18 @@ class Promise {
         this.rejectCallback = []
 
         let resolve = (value) => {
-            this.status = RESOLVE;
-            this.value = value;
-            this.resolveCallback.forEach(fn => fn())
+            if(this.status === PENDING) {
+                this.status = RESOLVE;
+                this.value = value;
+                this.resolveCallback.forEach(fn => fn())
+            }
         }
         let reject = (reason) => {
-            this.status = REJECT;
-            this.reason = reason
-            this.rejectCallback.forEach(fn => fn())
+            if(this.status === PENDING) {
+                this.status = REJECT;
+                this.reason = reason
+                this.rejectCallback.forEach(fn => fn())
+            }
         }
         try {
             executor(resolve, reject)
