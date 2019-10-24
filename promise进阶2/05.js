@@ -1,7 +1,9 @@
 const Promise = require("./promise")
 
 let p = new Promise((resolve,reject) => {
-    reject("呵呵")
+    setTimeout(()=>{
+        reject("呵呵")
+    },100)
 })
 
 p.then(null,(err1)=>{
