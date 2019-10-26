@@ -24,12 +24,12 @@ function checkType(type) {
 }
 //当前函数可以不在当前作用域下执行，这个就叫闭包
 let isString = checkType("String")
-console.log(isString("zhangsan"));
-console.log(isString(NaN));
+console.log(isString("zhangsan"));   //true
+console.log(isString(NaN));               //false
 
 let isNumber = checkType("Number")
-console.log(isNumber(12345));
-console.log(isNumber(NaN));
+console.log(isNumber(12345));      //true
+console.log(isNumber(NaN));             //true
 
 //作用域：函数定义时候产生的
 //执行栈：执行上下文，js静态作用域

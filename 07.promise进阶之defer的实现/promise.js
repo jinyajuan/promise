@@ -49,6 +49,9 @@ class Promise {
         this.rejectCallback = []
 
         let resolve = (value) => {
+            if(value instanceof Promise) {  //不能判断有没有then 否则测试过不去
+                return value.then(resolve,reject)   //递归
+            }
             this.status = RESOLVE;
             this.value = value;
             this.resolveCallback.forEach(fn => fn())
@@ -72,12 +75,12 @@ class Promise {
     * 如果执行函数出错，直接调用promise2的失败
     * */
     then(onFulfilled, onRejected) {
-        console.log(typeof onFulfilled);
-        console.log(typeof onRejected);
+        // console.log(typeof onFulfilled);
+        // console.log(typeof onRejected);
         onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : val => val;
         onRejected = typeof onRejected === "function" ? onRejected : err => {
             throw err
-        }
+        };
         let promise2 = new Promise((resolve, reject) => {
             if (this.status === RESOLVE) {
                 setTimeout(() => {
@@ -130,6 +133,9 @@ class Promise {
             }
         })
         return promise2
+    }
+    catch(errCallback) {   //catch没有终止的功能，后面可以继续写then
+        return this.then(null,errCallback)
     }
 }
 
